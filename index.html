@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi cumple - Jose Alberto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Add Abhaya Libre font -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* First banner - full height */
+        .banner-container-first {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Subsequent banners - content-based height */
+        .banner-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            /* Auto height based on content */
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        audio#background-music {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            opacity: 0.7;
+            z-index: 100;
+            border-radius: 30px;
+            box-shadow: 0 4px 8px rgba(8, 64, 24, 0.3);
+        }
+
+        audio#background-music:hover {
+            opacity: 1;
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .banner-overlay {
+            position: relative;
+            width: 100%;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+        }
+
+        /* First banner overlay needs to be absolute and full height */
+        .banner-container-first .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 0;
+        }
+
+        .top-image,
+        .bottom-image {
+            width: 400px;
+            height: auto;
+            display: block;
+            max-width: 95%;
+        }
+
+        .top-image {
+            margin-bottom: 2px;
+        }
+
+        .bottom-image {
+            margin-top: 2px;
+        }
+
+        .names-container {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            line-height: 0.9;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .title {
+            font-family: 'Rouge Script', cursive;
+            font-size: 7rem;
+            font-weight: 400;
+            margin: 0;
+            color: #8f927d;
+        }
+
+        .name {
+            margin: 0;
+            padding-top: 5px;
+            font-size: 100px;
+        }
+
+        .date {
+            font-size: 1.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .divider {
+            width: 200px;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.7);
+            margin: 0.5rem auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            margin-top: 2rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+
+        #welcome-overlay h2 {
+            font-family: 'Rouge Script', cursive;
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        #enter-btn {
+            padding: 15px 40px;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .music-control i {
+            font-size: 18px;
+        }
+
+        .name-style {
+            color: black;
+            font-size: 1.5rem;
+            margin: 10px 0;
+            font-weight: 500;
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Countdown styling with Abhaya Libre font */
+        #countdown-container {
+            margin: 20px 0;
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            font-family: 'Abhaya Libre', serif;
+            color: black;
+        }
+
+        #countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-number {
+            font-family: 'Abhaya Libre', serif;
+            font-weight: 800;
+        }
+
+        .countdown-label {
+            font-family: 'Abhaya Libre', serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .countdown-separator {
+            align-self: center;
+            margin-bottom: 20px;
+            font-family: 'Abhaya Libre', serif;
+            font-weight: 800;
+        }
+        .image-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .image-button:hover {
+            transform: scale(1.05);
+        }
+        .image-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Pass image styling */
+        .pass-image {
+            width: 50px;
+            height: auto;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 6rem;
+            }
+
+            .name {
+                font-size: 85px;
+            }
+
+            .subtitle {
+                font-size: 1.3rem;
+            }
+
+            .date {
+                font-size: 1.5rem;
+            }
+
+            .top-image,
+            .bottom-image,
+            .pass-image {
+                width: 90%;
+            }
+
+            #welcome-overlay h2 {
+                font-size: 5rem;
+            }
+
+            #enter-btn {
+                font-size: 1.2rem;
+                padding: 18px 45px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 5rem;
+            }
+
+            .name {
+                font-size: 70px;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .date {
+                font-size: 1.3rem;
+            }
+
+            .top-image,
+            .bottom-image,
+            .pass-image {
+                width: 85%;
+            }
+
+            #welcome-overlay h2 {
+                font-size: 4.2rem;
+            }
+
+            #enter-btn {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="welcome-overlay">
+        <img style="max-width: 100px;" src="ps5.gif" alt="Wedding Monogram" class="top-image">
+        <div style="font-size: 30px;">Jose Alberto</div>
+        <div>18/04/2025</div>
+        <br>
+        <button id="enter-btn">Entrar</button>
+    </div>
+
+    <!-- First banner - full height -->
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="sobre.gif" alt="Wedding Monogram" class="top-image">
+            <div class="names-container">
+                <h1 class="title name">Fernanda</h1>
+                <h1 class="title name">& Luis</h1>
+            </div>
+            <img src="https://i.postimg.cc/xdxtwRQ4/Agregar-un-t-tulo.png" alt="Wedding Monogram" class="bottom-image">
+        </div>
+    </section>
+
+    <!-- Second banner - content height -->
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram"
+                class="top-image"><br>
+            <img src="imagegif.gif" alt="Wedding Monogram" class="top-image"><br>
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram" class="top-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/bJWH8xgY/Agregar-un-t-tulo-7.png" alt="Wedding Monogram"
+                class="bottom-image">
+        </div>
+    </section>
+    <!-- Third banner -->
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="ring.gif" alt="Wedding Monogram" class="top-image">
+            <div class="title name" style="color: black;">Save the Date</div>
+            <img src="https://i.postimg.cc/wxDgpWfP/Agregar-un-t-tulo.png" alt="Wedding Monogram" class="top-image">
+        </div>
+    </section>
+
+    <!-- Fourth banner -->
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/pTtcYBfh/Agregar-un-t-tulo-2.png" alt="Wedding Monogram" class="top-image">
+            <div class="name-style">Fernanda Rojas Juarez</div>
+            <div class="name-style">Luis Fernando Solana Medina</div>
+            <img src="https://i.postimg.cc/HkdQ2PRC/Agregar-un-t-tulo.png" alt="Wedding Monogram" class="top-image">
+            <div class="name-style">Elsa Noemi Juárez Hernández</div>
+            <div class="name-style">José De Jesús Rojas Gomez</div>
+            <img src="https://i.postimg.cc/DZ9GbCLH/Agregar-un-t-tulo-1.png" alt="Wedding Monogram" class="top-image">
+            <div class="name-style">Ma. De Jesús Medina Roque</div>
+            <div class="name-style">Fernando Solana Alba</div>
+        </div>
+    </section>
+
+    <!-- Fifth banner -->
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="latido.gif" alt="Wedding Monogram" class="top-image"><br>
+            <img src="https://i.postimg.cc/J4X4YrJf/Agregar-un-t-tulo-5.png" alt="Wedding Monogram" class="top-image">
+            <div class="title name" style="color: black;">Solo faltan</div>
+
+            <!-- Updated countdown with Abhaya Libre font -->
+            <div id="countdown-container">
+                <div id="countdown-timer">
+                    <div class="countdown-unit">
+                        <span id="days" class="countdown-number">00</span>
+                        <span class="countdown-label">Días</span>
+                    </div>
+                    <span class="countdown-separator">:</span>
+                    <div class="countdown-unit">
+                        <span id="hours" class="countdown-number">00</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <span class="countdown-separator">:</span>
+                    <div class="countdown-unit">
+                        <span id="minutes" class="countdown-number">00</span>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+                    <span class="countdown-separator">:</span>
+                    <div class="countdown-unit">
+                        <span id="seconds" class="countdown-number">00</span>
+                        <span class="countdown-label">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+            <img src="https://i.postimg.cc/sxXKfHPW/Agregar-un-t-tulo-5-Copy.png" alt="Wedding Monogram"
+                class="top-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram"
+                class="top-image"><br>
+            <div class="name-style">HAY MOMENTOS QUE SON ESPECIALES POR SI SOLOS, PERO COMPARTIRLOS CON LAS PERSONAS QUE
+                QUEREMOS LOS HACE INOLVIDABLES.</div><br>
+            <div class="name-style">TENEMOS EL HONOR DE INVITARLOS A CELEBRAR NUESTRA UNION.</div><br>
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram" class="top-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <div class="title name" style="color: black;">Ceremonia Civil</div>
+            <img src="https://i.postimg.cc/J0XgW4bg/Agregar-un-t-tulo-8.png" alt="Wedding Monogram" class="top-image">
+            <div class="name-style">19:00 PM</div>
+            <div class="name-style">TERRAZA MAGNOLIAS</div>
+            <div class="name-style">AV. PUESTA DEL SOL # 904</div><br>
+            <img src="https://i.postimg.cc/dVN94cCT/Agregar-un-t-tulo-10.png" alt="Wedding Monogram" class="top-image">
+            <div class="name-style">20:00 PM</div>
+            <div class="name-style">TERRAZA MAGNOLIAS</div>
+            <div class="name-style">AV. PUESTA DEL SOL # 904</div><br>
+            <a href="https://maps.app.goo.gl/xmoo3TM2movCv7iE7" class="image-button">
+                <img src="ubicacion.png" alt="Wedding Monogram" class="bottom-image">
+            </a>
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/9fpCv1WT/Agregar-un-t-tulo-13.png" alt="Wedding Monogram"
+                class="bottom-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="itinerario.gif" alt="Wedding Monogram"
+                class="bottom-image">
+        </div>
+    </section>
+    
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <div class="name-style">Tu presencia es el mejor regalo, la asistencia es obligatoria, el regalo es
+                opcional.</div>
+            <div class="name-style">Si gustas hacernos un detalle te dejamos una sugerencia.</div>
+            <div class="title name" style="color: black;">Lluvia de sobres</div>
+            <img src="https://i.postimg.cc/zXGNgTFX/Agregar-un-t-tulo-15.png" alt="Wedding Monogram"
+                class="bottom-image">
+            <div class="name-style">Es la tradición de regalar dinero en efectivo en un sobre el día del evento.
+            </div>
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram"
+            class="bottom-image"><br>
+            <div class="title name" style="color: black;">Nota:</div>
+            <div class="name-style">Debido al espacio de nuestra locación nupcial, tenemos cupos reservados solo para adultos.</div>
+            <div class="name-style">Agradecemos su comprensión.</div><br>
+            <img src="https://i.postimg.cc/v8rV2wnS/Agregar-un-t-tulo-6.png" alt="Wedding Monogram"
+                class="bottom-image">
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <div class="title name" style="color: black;">Reservamos para ti</div>
+            <div class="name-style">La siguiente cantidad de pases:</div>
+            <div id="pass-container">
+                <!-- The pass number or image will be inserted here by JavaScript -->
+            </div>
+            <div class="name-style">Tu presencia es muy importante para nosotros, favor de confirmar tu asistencia antes
+                de el 30 de Abril.</div>
+            <div class="title name" style="color: black;">Te esperamos!</div>
+            <a href="https://wa.me/523348130705?text=Confirmo%20asistencia%20de%20los%20pases%20que%20se%20reservaron%20a%20mi%20nombre%20%20." class="image-button">
+                <img src="asistencia.png" alt="Wedding Monogram" class="bottom-image">
+            </a>
+        </div>
+    </section>
+    <section class="banner-container">
+        <img src="https://i.postimg.cc/Kj3RQZcY/Dise-o-sin-t-tulo-1.png" alt="Wedding Banner" class="banner-image">
+        <div class="banner-overlay">
+            <div class="title name" style="color: black;">Fernanda & Luis</div>
+            <img src="camera.png" alt="Wedding Monogram"
+            class="bottom-image">
+            <div class="name-style">Comparte con nosotros las fotos del evento. Escanea el código y carga las fotos.</div>
+            <div class="title name" style="color: black;">Gracias!</div>
+        </div>
+    </section>
+
+    <!-- Add more banner sections as needed -->
+
+    <div class="music-control" id="music-toggle">
+        <i class="fas fa-volume-up" id="music-icon"></i>
+    </div>
+    <audio id="background-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        // Get the elements
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        const enterBtn = document.getElementById('enter-btn');
+        const backgroundMusic = document.getElementById('background-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicIcon = document.getElementById('music-icon');
+        let isMusicPlaying = false;
+
+        // Function to start music and remove overlay
+        function enterSite() {
+            // Play the music
+            backgroundMusic.play().catch(error => {
+                console.log('Autoplay prevented by browser:', error);
+            });
+
+            isMusicPlaying = true;
+
+            // Hide the welcome overlay with a fade effect
+            welcomeOverlay.style.opacity = '0';
+            welcomeOverlay.style.transition = 'opacity 1s ease';
+
+            // Remove the overlay after the transition
+            setTimeout(() => {
+                welcomeOverlay.style.display = 'none';
+            }, 1000);
+        }
+
+        // Toggle music play/pause
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+                musicIcon.classList.remove('fa-volume-up');
+                musicIcon.classList.add('fa-volume-mute');
+            } else {
+                backgroundMusic.play();
+                musicIcon.classList.remove('fa-volume-mute');
+                musicIcon.classList.add('fa-volume-up');
+            }
+
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // Event listener for the enter button
+        enterBtn.addEventListener('click', enterSite);
+
+        // Event listener for music toggle
+        musicToggle.addEventListener('click', toggleMusic);
+
+        // Attempt autoplay on page visibility change (helps with some browsers)
+        document.addEventListener('visibilitychange', function () {
+            if (!document.hidden && welcomeOverlay.style.display === 'none' && isMusicPlaying) {
+                backgroundMusic.play().catch(e => { });
+            }
+        });
+
+        // Try to play music when user interacts with the page
+        document.addEventListener('click', function () {
+            if (welcomeOverlay.style.display === 'none' && isMusicPlaying) {
+                backgroundMusic.play().catch(e => { });
+            }
+        });
+    </script>
+    <script>
+        // Set the wedding date - July 19, 2025 at 19:00:00 Central Mexico City time (UTC-6)
+        const weddingDate = new Date('2025-07-19T19:00:00-06:00').getTime();
+
+        // Update the countdown every second
+        const countdownTimer = setInterval(function () {
+            // Get current date and time in Mexico City time zone
+            const now = new Date().getTime();
+
+            // Calculate the time remaining
+            const timeRemaining = weddingDate - now;
+
+            // Calculate days, hours, minutes, and seconds
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            // Display the countdown
+            document.getElementById('days').innerHTML = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerHTML = seconds.toString().padStart(2, '0');
+
+            // If the countdown is over, display a message
+            if (timeRemaining < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById('countdown-container').innerHTML = '<div style="font-family: \'Abhaya Libre\', serif; color: black; font-size: 2.5rem; font-weight: 800;">¡Hoy es el gran día!</div>';
+            }
+        }, 1000);
+
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Get the pass number from URL parameter
+        const passNumber = getUrlParameter('ps');
+        const passContainer = document.getElementById('pass-container');
+
+        // Update the pass display based on URL parameter
+        if (passNumber && !isNaN(passNumber) && passNumber >= 1 && passNumber <= 6) {
+            // Create an image element for the pass
+            const passImage = document.createElement('img');
+            passImage.src = `img${passNumber}.gif`;
+            passImage.alt = `${passNumber} Pases`;
+            passImage.className = 'pass-image';
+            passContainer.appendChild(passImage);
+        } else {
+            // Default fallback - show the number 1
+            const defaultPass = document.createElement('div');
+            defaultPass.className = 'title name';
+            defaultPass.style.color = 'black';
+            defaultPass.innerText = '1';
+            passContainer.appendChild(defaultPass);
+        }
+    </script>
+</body>
+
+</html>
