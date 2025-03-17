@@ -213,14 +213,206 @@
                 font-size: 1.1rem;
             }
         }
+
+        .neon-title {
+    font-family: 'Zrnic', sans-serif;
+    font-size: 6rem;
+    font-weight: 400;
+    color: #fff;
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 15px #0073e6,
+        0 0 20px #0073e6,
+        0 0 25px #0073e6,
+        0 0 30px #0073e6,
+        0 0 35px #0073e6;
+    animation: neon-pulse 1.5s infinite alternate;
+    margin: 10px 0;
+    letter-spacing: 5px;
+}
+
+@keyframes neon-pulse {
+    from {
+        text-shadow: 
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 15px #0073e6,
+            0 0 20px #0073e6,
+            0 0 25px #0073e6,
+            0 0 30px #0073e6,
+            0 0 35px #0073e6;
+    }
+    to {
+        text-shadow: 
+            0 0 10px #fff,
+            0 0 20px #fff,
+            0 0 30px #0073e6,
+            0 0 40px #0073e6,
+            0 0 50px #0073e6,
+            0 0 60px #0073e6,
+            0 0 70px #0073e6;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .neon-title {
+        font-size: 4.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .neon-title {
+        font-size: 3.5rem;
+    }
+}
+.neon-button {
+    position: relative;
+    display: inline-block;
+    padding: 15px 30px;
+    margin: 30px 0;
+    color: #03e9f4;
+    font-size: 1.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    border: none;
+    background: transparent;
+    font-family: 'Zrnic', sans-serif;
+    cursor: pointer;
+}
+
+.neon-button:hover {
+    background: #03e9f4;
+    color: #050801;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 200px #03e9f4;
+}
+
+.neon-button span {
+    position: absolute;
+    display: block;
+}
+
+.neon-button span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03e9f4);
+    animation: neon-btn-anim1 1s linear infinite;
+}
+
+@keyframes neon-btn-anim1 {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 100%;
+    }
+}
+
+.neon-button span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03e9f4);
+    animation: neon-btn-anim2 1s linear infinite;
+    animation-delay: 0.25s;
+}
+
+@keyframes neon-btn-anim2 {
+    0% {
+        top: -100%;
+    }
+    50%, 100% {
+        top: 100%;
+    }
+}
+
+.neon-button span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #03e9f4);
+    animation: neon-btn-anim3 1s linear infinite;
+    animation-delay: 0.5s;
+}
+
+@keyframes neon-btn-anim3 {
+    0% {
+        right: -100%;
+    }
+    50%, 100% {
+        right: 100%;
+    }
+}
+
+.neon-button span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #03e9f4);
+    animation: neon-btn-anim4 1s linear infinite;
+    animation-delay: 0.75s;
+}
+
+@keyframes neon-btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+    50%, 100% {
+        bottom: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .neon-button {
+        font-size: 1.2rem;
+        padding: 12px 24px;
+    }
+}
     </style>
 </head>
 
 <body>
     <div id="welcome-overlay">
         <img style="max-width: 100px;" src="ps5.gif" alt="Birthday Logo" class="top-image">
-        <div style="font-size: 30px;">Jose Alberto</div>
-        <div>12/04/2025</div>
+        <div style="font-size: 50px;" class="neon-title">Jose Alberto</div>
+        <div style="font-size: 30px;">12/04/2025</div><br>
+        <div style="font-size: 30px;">Solo Faltan</div>
+        <div id="countdown-container">
+            <div id="countdown-timer">
+                <div class="countdown-unit">
+                    <span id="days" class="countdown-number">00</span>
+                    <span class="countdown-label">Días</span>
+                </div>
+                <span class="countdown-separator">:</span>
+                <div class="countdown-unit">
+                    <span id="hours" class="countdown-number">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <span class="countdown-separator">:</span>
+                <div class="countdown-unit">
+                    <span id="minutes" class="countdown-number">00</span>
+                    <span class="countdown-label">Minutos</span>
+                </div>
+                <span class="countdown-separator">:</span>
+                <div class="countdown-unit">
+                    <span id="seconds" class="countdown-number">00</span>
+                    <span class="countdown-label">Segundos</span>
+                </div>
+            </div>
+        </div>
+
         <br>
         <button id="enter-btn">Entrar</button>
     </div>
@@ -228,34 +420,28 @@
     <section class="banner-container">
         <div class="banner-overlay">
             <img src="ps5.gif" alt="Birthday Logo" class="top-image"><br>
-            <div class="title">Solo faltan</div>
-
-            <!-- Countdown timer -->
-            <div id="countdown-container">
-                <div id="countdown-timer">
-                    <div class="countdown-unit">
-                        <span id="days" class="countdown-number">00</span>
-                        <span class="countdown-label">Días</span>
-                    </div>
-                    <span class="countdown-separator">:</span>
-                    <div class="countdown-unit">
-                        <span id="hours" class="countdown-number">00</span>
-                        <span class="countdown-label">Horas</span>
-                    </div>
-                    <span class="countdown-separator">:</span>
-                    <div class="countdown-unit">
-                        <span id="minutes" class="countdown-number">00</span>
-                        <span class="countdown-label">Minutos</span>
-                    </div>
-                    <span class="countdown-separator">:</span>
-                    <div class="countdown-unit">
-                        <span id="seconds" class="countdown-number">00</span>
-                        <span class="countdown-label">Segundos</span>
-                    </div>
-                </div>
-            </div>
-
-            <img src="https://i.postimg.cc/jdspngYg/control.png" alt="Birthday Logo" class="top-image"><br>
+            <div class="title">Jose Alberto llego al</div>
+            <a href="" class="neon-button" target="_blank" style="font-size: 70px;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                NIVEL 11
+            </a>
+            <div class="title">Acompananos a festejar</div>
+            <div style="font-size: 30px;" class="neon-title">Sabado 12 de Abril</div><br>
+            <div style="font-size: 30px;">Av. Ajedresistas #834</div>
+            <div style="font-size: 30px;">Lomas de Vista Bella</div>
+            <div style="font-size: 50px;" class="neon-title">NO FALTES!</div><br>
+            <a href="https://wa.link/46a5cu" class="neon-button" target="_blank">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Confirmar Asistencia aqui
+            </a>
+            <img src="control.png" alt="Birthday Logo" class="top-image"><br>
+            
         </div>
     </section>
 
